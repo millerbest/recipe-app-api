@@ -6,9 +6,12 @@ COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
 WORKDIR /app
-EXPOSE 8008
+EXPOSE 8080
 
+# ARG will be overwritten by docker-compose
 ARG DEV=false
+
+# Shell script
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client && \

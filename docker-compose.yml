@@ -5,15 +5,15 @@ services:
     build:
       context: .
       args:
-        - DEV=true
+        - DEV=true # overwrite the Dockerfile's ARG
     ports:
-      - "8008:8008"
+      - "8080:8080"
     volumes:
       - ./app:/app
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8008"
+             python manage.py runserver 0.0.0.0:8080"
     environment:
       - DB_HOST=db
       - DB_NAME=devdb
