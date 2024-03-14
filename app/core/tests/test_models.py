@@ -3,7 +3,7 @@ Tests for models.
 """
 
 from django.test import TestCase
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model  # get default user model
 
 
 class ModelTests(TestCase):
@@ -13,8 +13,14 @@ class ModelTests(TestCase):
         """Test creasting a user with an email is successful."""
         email = "test@example.com"
         password = "testpass123"
+        # Create a new user using the UserModel's method
         user = get_user_model().objects.create_user(email=email, password=password)  # type: ignore
+
+        # Check if the user's email is the same as the input
         self.assertEqual(user.email, email)
+
+        # Check if the password is the same. Password is hashed, so we have to chck with
+        # user.check_password method
         self.assertTrue(user.check_password(password))  # type: ignore
 
     def test_new_user_email_normalized(self):
@@ -32,11 +38,11 @@ class ModelTests(TestCase):
     def test_new_user_without_email_raises_error(self):
         """Test that creating a user without an email raises a ValueError"""
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user("", "test123")
+            get_user_model().objects.create_user("", "test123")  # type: ignore
 
     def test_create_superuser(self):
         """Test creating a superuser"""
-        user = get_user_model().objects.create_superuser("teste@example.com", "test123")
+        user = get_user_model().objects.create_superuser("teste@example.com", "test123")  # type: ignore
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
