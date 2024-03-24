@@ -11,6 +11,7 @@ from recipe import views
 router = DefaultRouter()
 router.register("recipes", views.RecipeViewSet)
 router.register("tags", views.TagViewSet)
+router.register("ingredients", views.IngredientViewSet)
 # enable auto-generated urls dependent on the ViewSet (for CRUD)
 
 app_name = "recipe"  # used for reverse urls
